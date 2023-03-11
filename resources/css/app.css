@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Bebas Neue";
+    font-style: normal;
+    font-weight: 400;
+    src: url("$fonts/BebasNeue.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 100 900;
+    src: url("$fonts/Inter.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Lobster";
+    font-style: normal;
+    font-weight: 400;
+    src: url("$fonts/Lobster.ttf") format("truetype");
+}
+
+.landing-bg {
+    background: radial-gradient(theme(colors.zinc.800), theme(colors.zinc.900));
+}
