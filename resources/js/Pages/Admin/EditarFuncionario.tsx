@@ -1,6 +1,7 @@
 import { Button } from "@/Components/Button";
 import Input from "@/Components/Input";
-import { Listbox } from "@/Components/Listbox";
+import { Listbox } from "@/Components/LegacyListbox";
+import { Select } from "@/Components/Select";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { useForm, usePage } from "@inertiajs/react";
 import { FormEvent, useEffect, useState } from "react";
@@ -11,14 +12,16 @@ export default function EditarFuncionario({ funcionario, cargos }: any) {
         email: funcionario.email,
         password: "",
         password_confirmation: "",
-        role: funcionario.role,
+        role_id: funcionario.role_id,
     });
 
-    const selectRole = (role: any) => {
-        setData("role", role);
+    console.log(funcionario);
+
+    const selectRole = (role_id: any) => {
+        setData("role_id", role_id);
     };
 
-    transform((data) => ({ ...data, role_id: data.role.id }));
+    // transform((data) => ({ ...data, role_id: data.role.id }));
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -30,38 +33,44 @@ export default function EditarFuncionario({ funcionario, cargos }: any) {
     return (
         <AdminLayout header={{ title: "Editar Funcionário", back: true }}>
             <div className="p-6">
-                <div className="bg-white shadow py-6 px-12 rounded-md">
+                <div className="px-12 py-6 bg-white rounded-md shadow">
                     <form className="max-w-md" onSubmit={handleSubmit}>
-                        <h3 className="mb-2 text-lg font-bold">
-                            Informações Gerais
-                        </h3>
-                        <div>
-                            <label>Nome</label>
-                            <Input
-                                value={data.name}
-                                onChange={(e) => {
-                                    setData("name", e.target.value);
-                                }}
-                                className="w-full"
-                            ></Input>
-                            {errors.name && (
-                                <ErrorMessage>{errors.name}</ErrorMessage>
-                            )}
-                        </div>
-                        <div className="mt-3">
-                            <label>E-mail</label>
-                            <Input
-                                value={data.email}
-                                onChange={(e) => {
-                                    setData("email", e.target.value);
-                                }}
-                                className="w-full"
-                            ></Input>
-                            {errors.email && (
-                                <ErrorMessage>{errors.email}</ErrorMessage>
-                            )}
-                        </div>
-                        <div className="mt-3">
+                        <div className="flex max-w-2xl gap-5 px-12 py-6 whitespace-nowrap">
+                            <div className="flex-[2]">
+                                <h3 className="mb-2 text-lg font-bold">
+                                    Informações Gerais
+                                </h3>
+                                <div>
+                                    <label>Nome</label>
+                                    <Input
+                                        value={data.name}
+                                        onChange={(e) => {
+                                            setData("name", e.target.value);
+                                        }}
+                                        className="w-full"
+                                    ></Input>
+                                    {errors.name && (
+                                        <ErrorMessage>
+                                            {errors.name}
+                                        </ErrorMessage>
+                                    )}
+                                </div>
+                                <div className="mt-3">
+                                    <label>E-mail</label>
+                                    <Input
+                                        value={data.email}
+                                        onChange={(e) => {
+                                            setData("email", e.target.value);
+                                        }}
+                                        className="w-full"
+                                    ></Input>
+                                    {errors.email && (
+                                        <ErrorMessage>
+                                            {errors.email}
+                                        </ErrorMessage>
+                                    )}
+                                </div>
+                                {/* <div className="mt-3">
                             <label>Cargo</label>
                             <Listbox
                                 options={cargos}
@@ -71,51 +80,70 @@ export default function EditarFuncionario({ funcionario, cargos }: any) {
                             {errors.role && (
                                 <ErrorMessage>{errors.role}</ErrorMessage>
                             )}
-                        </div>
-                        <hr className="my-5" />
-                        <h3 className="mb-2 text-lg font-bold">Trocar senha</h3>
-                        <div>
-                            <label>Senha</label>
-                            <Input
-                                value={data.password}
-                                onChange={(e) => {
-                                    setData("password", e.target.value);
-                                }}
-                                className="w-full"
-                            ></Input>
-                            {errors.password && (
-                                <ErrorMessage>{errors.password}</ErrorMessage>
-                            )}
-                        </div>
-                        <div className="mt-3">
-                            <label>Confirmar Senha</label>
-                            <Input
-                                value={data.password_confirmation}
-                                onChange={(e) => {
-                                    setData(
-                                        "password_confirmation",
-                                        e.target.value
-                                    );
-                                }}
-                                className="w-full"
-                            ></Input>
-                            {errors.password_confirmation && (
-                                <ErrorMessage>
-                                    {errors.password_confirmation}
-                                </ErrorMessage>
-                            )}
-                        </div>
-                        <div className="mt-3">
-                            <Button>Salvar</Button>
-                        </div>
-                        <hr className="my-5" />
-                        <h3 className="mb-2 text-lg font-bold">
-                            Excluir conta
-                        </h3>
-                        <div>
-                            <Button className="text-white bg-red-500 hover:bg-red-400 active:bg-red-600 shadow-red-500/40">
-                                Excluir conta
-                            </Button>
+                        </div> */}
+                                <div className="mt-3">
+                                    <label>Cargo</label>
+                                    <Select
+                                        items={cargos}
+                                        value={data.role_id.toString()}
+                                        onValueChange={selectRole}
+                                    ></Select>
+                                    {errors.role_id && (
+                                        <ErrorMessage>
+                                            {errors.role_id}
+                                        </ErrorMessage>
+                                    )}
+                                </div>
+                                <hr className="my-5" />
+                                <h3 className="mb-2 text-lg font-bold">
+                                    Trocar senha
+                                </h3>
+                                <div>
+                                    <label>Senha</label>
+                                    <Input
+                                        value={data.password}
+                                        onChange={(e) => {
+                                            setData("password", e.target.value);
+                                        }}
+                                        className="w-full"
+                                    ></Input>
+                                    {errors.password && (
+                                        <ErrorMessage>
+                                            {errors.password}
+                                        </ErrorMessage>
+                                    )}
+                                </div>
+                                <div className="mt-3">
+                                    <label>Confirmar Senha</label>
+                                    <Input
+                                        value={data.password_confirmation}
+                                        onChange={(e) => {
+                                            setData(
+                                                "password_confirmation",
+                                                e.target.value
+                                            );
+                                        }}
+                                        className="w-full"
+                                    ></Input>
+                                    {errors.password_confirmation && (
+                                        <ErrorMessage>
+                                            {errors.password_confirmation}
+                                        </ErrorMessage>
+                                    )}
+                                </div>
+                                <div className="mt-3">
+                                    <Button>Salvar</Button>
+                                </div>
+                                <hr className="my-5" />
+                                <h3 className="mb-2 text-lg font-bold">
+                                    Excluir conta
+                                </h3>
+                                <div>
+                                    <Button className="text-white bg-red-500 hover:bg-red-400 active:bg-red-600 shadow-red-500/40">
+                                        Excluir conta
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -125,5 +153,5 @@ export default function EditarFuncionario({ funcionario, cargos }: any) {
 }
 
 const ErrorMessage = ({ children }: any) => {
-    return <div className="text-red-600 text-sm">{children}</div>;
+    return <div className="text-sm text-red-600">{children}</div>;
 };

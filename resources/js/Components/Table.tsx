@@ -13,7 +13,7 @@ export const Table = ({ columns, data }: { columns: Column[]; data: any }) => {
 
     return (
         <div
-            className="text-left text-sm text-gray-500"
+            className="text-sm text-left text-gray-500"
             {...table.getTableProps()}
         >
             {table.headerGroups.map((headerGroup) =>
@@ -44,9 +44,9 @@ export const Table = ({ columns, data }: { columns: Column[]; data: any }) => {
                         {row.cells.map((cell) => (
                             <div
                                 {...cell.getCellProps()}
-                                className="px-6 py-4 cell whitespace-nowrap group-hover:bg-gray-50 bg-white group hover:z-50"
+                                className="flex items-center px-6 py-4 bg-white cell whitespace-nowrap group-hover:bg-gray-50 group hover:z-50"
                             >
-                                <span className="hover:bg-gray-50 group-hover:shadow-[0_0_0_4px_theme(colors.gray.50)] group-hover:z-50 h-full">
+                                <span className="hover:bg-gray-50 group-hover:shadow-[0_0_0_4px_theme(colors.gray.50)] group-hover:z-50">
                                     {cell.render("Cell")}
                                 </span>
                             </div>

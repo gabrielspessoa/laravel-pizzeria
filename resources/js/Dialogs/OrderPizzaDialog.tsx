@@ -1,7 +1,8 @@
 import { faShoppingCart, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "./Button";
-import Modal from "./Modal";
+import { Button } from "../Components/Button";
+import Modal from "../Components/Modal";
+import Input from "@/Components/Input";
 
 interface Props {
     isDialogOpen: boolean;
@@ -18,7 +19,7 @@ export const OrderPizzaDialog = ({
         <Modal
             show={isDialogOpen}
             onClose={() => setDialogOpen(false)}
-            className="max-w-2xl p-7 flex flex-col relative"
+            className="p-7"
         >
             <button
                 className="absolute right-3 top-3"
@@ -26,17 +27,17 @@ export const OrderPizzaDialog = ({
             >
                 <FontAwesomeIcon icon={faX} />
             </button>
-            <h1 className="text-center font-lobster text-2xl mb-5">
+            <h1 className="mb-5 text-2xl text-center font-lobster">
                 Faça seu pedido
             </h1>
             <div className="flex">
-                <div className="flex flex-col shrink-1 mr-4">
+                <div className="flex flex-col mr-4 shrink-1">
                     <span className="">Sabor: {selectedPizza.name}</span>
                     <span className="flex flex-col sm:flex-row sm:items-center">
                         <label htmlFor="qty" className="mr-3">
                             Quantidade
                         </label>
-                        <input
+                        <Input
                             type="number"
                             id="qty"
                             className="w-full rounded"
@@ -44,11 +45,11 @@ export const OrderPizzaDialog = ({
                         />
                     </span>
                 </div>
-                <div className="max-h-28 aspect-square shrink-0 ml-auto">
-                    <img src={selectedPizza.image} />
+                <div className="ml-auto max-h-28 aspect-square shrink-0">
+                    <img src={selectedPizza.image_url} />
                 </div>
             </div>
-            <Button className="text-center rounded-full font-semibold w-fit mx-auto px-10 mt-3">
+            <Button className="px-10 mx-auto mt-3 font-semibold text-center rounded-full w-fit">
                 Adicionar no carrinho
                 <FontAwesomeIcon icon={faShoppingCart} className="ml-3" />
             </Button>

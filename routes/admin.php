@@ -27,5 +27,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
   Route::patch('/admin/funcionarios/{id}/atualizar', [UserController::class, 'update'])->name('admin.funcionarios.atualizar');
 
-  Route::get('/admin/produtos', [ProductController::class, 'index'])->name('admin.produtos');
+  // Route::get('/admin/produtos', [ProductController::class, 'index'])->name('admin.produtos');
+
+  // Route::get('/admin/produtos/criar', [ProductController::class, 'create'])->name('admin.produtos.criar');
+
+  Route::resource('/admin/produtos', ProductController::class)->names([
+    'index' => 'admin.produtos.index',
+    'create' => 'admin.produtos.create',
+    'store' => 'admin.produtos.store',
+    'show' => 'admin.produtos.show',
+    'edit' => 'admin.produtos.edit',
+    'update' => 'admin.produtos.update',
+    'destroy' => 'admin.produtos.destroy'
+  ])->parameters(['produtos' => 'product']);
 });

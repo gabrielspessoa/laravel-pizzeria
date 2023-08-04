@@ -21,7 +21,7 @@ class UserController extends Controller
 
   public function edit($id)
   {
-    $user = User::with('role')->find($id);
+    $user = User::find($id);
     $role = Role::all();
 
     return Inertia::render('Admin/EditarFuncionario', ['funcionario' => $user, 'cargos' => $role]);

@@ -8,10 +8,10 @@ export function Listbox({ options, selected, setSelected }: any) {
     return (
         <HLListbox value={selected} onChange={setSelected}>
             <div className="relative">
-                <HLListbox.Button className="h-11 relative px-3 w-full text-start border-2 border-slate-300 hover:border-slate-400 focus:border-yellow-500 ring-0 ring-slate-400 focus:ring-1 focus:ring-yellow-500 rounded-md transition duration-200 focus:outline-none">
+                <HLListbox.Button className="relative w-full px-3 py-2 text-sm transition duration-200 border border-gray-300 rounded-md text-start hover:border-yellow-400 focus:border-yellow-500 ring-0 ring-gray-400 focus:ring-2 focus:ring-yellow-500/30 focus:outline-none">
                     {selected.name}
                     <FontAwesomeIcon
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600"
+                        className="absolute text-gray-600 -translate-y-1/2 right-3 top-1/2"
                         icon={faCaretDown}
                     />
                 </HLListbox.Button>
@@ -24,7 +24,7 @@ export function Listbox({ options, selected, setSelected }: any) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <HLListbox.Options className="absolute mt-1 max-h-60 overflow-auto bg-white w-full py-3 shadow-md rounded-md border border-gray-300">
+                    <HLListbox.Options className="absolute w-full py-3 mt-1 overflow-auto bg-white border border-gray-300 rounded-md shadow-md max-h-60">
                         {options.map((option: any) => (
                             <HLListbox.Option
                                 key={option.id}

@@ -13,7 +13,7 @@ export default forwardRef<HTMLInputElement, Props>(function Checkbox(
             ref={ref}
             {...props}
             className={twMerge([
-                "bg-slate-300 rounded-md border-none text-yellow-500 focus:ring-yellow-500 transition",
+                "bg-gray-300 rounded-md border-none text-yellow-500 focus:ring-yellow-500 transition",
             ])}
             onChange={props.onChange}
         />

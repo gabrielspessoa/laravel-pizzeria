@@ -1,14 +1,14 @@
-import { Button } from "@/Components/Button";
-import Dropdown from "@/Components/Dropdown";
-import { DropdownTest } from "@/Components/DropdownTest";
+import { NavDropdown } from "@/Components/NavDropdown";
 import {
     faArrowLeft,
+    faGear,
     faHouse,
     faPizzaSlice,
     faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@inertiajs/react";
+import { Slot } from "@radix-ui/react-slot";
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -23,41 +23,41 @@ interface Props {
 
 export default function AdminLayout({ children, className, header }: Props) {
     return (
-        <div className="h-screen flex">
+        <div className="flex h-screen">
             <aside>
-                <nav className="w-16 h-full flex flex-col items-center bg-red-600 text-white py-4">
-                    <div className="text-2xl mb-5">
+                <nav className="flex flex-col items-center w-16 h-full py-4 text-white bg-red-600">
+                    <div className="mb-5 text-2xl">
                         <span className="font-bold">L</span>
                         <span>P</span>
                     </div>
-                    <div className="flex flex-col w-full h-full justify-between">
+                    <div className="flex flex-col justify-between w-full h-full">
                         <NavGroup>
-                            <NavItem
+                            <NavLink
                                 routeName="admin.dashboard"
                                 icon={<FontAwesomeIcon icon={faHouse} />}
-                            ></NavItem>
-                            <NavItem
+                            ></NavLink>
+                            <NavLink
                                 routeName="admin.funcionarios"
                                 icon={<FontAwesomeIcon icon={faUsers} />}
-                            ></NavItem>
-                            <NavItem
-                                routeName="admin.produtos"
+                            ></NavLink>
+                            <NavLink
+                                routeName="admin.produtos.index"
                                 icon={<FontAwesomeIcon icon={faPizzaSlice} />}
-                            ></NavItem>
+                            ></NavLink>
                         </NavGroup>
                         <NavGroup>
-                            <NavDropdown />
+                            <NavDropdown></NavDropdown>
                         </NavGroup>
                     </div>
                 </nav>
             </aside>
             <main className="w-full overflow-auto">
                 {header && (
-                    <div className="w-full border-b px-6 h-14 bg-white text-xl font-semibold flex items-center">
+                    <div className="flex items-center w-full px-6 text-xl font-semibold bg-white border-b h-14">
                         {header.back && (
                             <button
                                 onClick={() => history.back()}
-                                className="hover:bg-gray-200 flex h-8 w-8 items-center justify-center rounded-full mr-3"
+                                className="flex items-center justify-center w-8 h-8 mr-3 rounded-full hover:bg-gray-200"
                             >
                                 <FontAwesomeIcon icon={faArrowLeft} />
                             </button>
@@ -75,10 +75,10 @@ const NavGroup = ({ children }: any) => {
     return <div className="flex flex-col items-center gap-4">{children}</div>;
 };
 
-const NavItem = ({ routeName, children, icon, as = Link }: any) => {
+const NavLink = ({ routeName, children, icon, asChild }: any) => {
     let active = routeName ? route().current(routeName) : false;
 
-    const Component = as;
+    const Component = Link;
 
     return (
         <Component
@@ -91,11 +91,23 @@ const NavItem = ({ routeName, children, icon, as = Link }: any) => {
             ])}
         >
             {icon}
-            {children}
         </Component>
     );
 };
 
-const NavDropdown = () => {
-    return <DropdownTest align="right"></DropdownTest>;
+const NavButton = ({ icon, children, ...props }: any) => {
+    const active = false;
+    return (
+        <button
+            className={twMerge([
+                "flex flex-col gap-1 items-center px-3 w-full relative z-20 font-semibold py-4",
+                active
+                    ? "bg-red-500 before:content-[''] before:bg-white before:absolute before:bottom-0 before:top-0 before:right-0 before:w-1 before:-z-10"
+                    : "after:content-[''] after:bg-white after:absolute after:bottom-0 after:top-0 after:right-0 after:w-1 after:transition-transform after:scale-x-0 after:origin-right hover:after:scale-x-100 hover:bg-red-500 transition duration-200",
+            ])}
+            {...props}
+        >
+            {icon}
+        </button>
+    );
 };

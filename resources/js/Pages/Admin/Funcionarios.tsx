@@ -17,7 +17,7 @@ export default function AdminFuncionariosPage({ funcionarios }: any) {
                 width: "min-content",
                 disableResizing: true,
             },
-            { Header: "Nome", accessor: "name" },
+            { Header: "Nome", accessor: "name", width: "0.3fr" },
             {
                 Header: "E-mail",
                 accessor: "email",
@@ -26,20 +26,19 @@ export default function AdminFuncionariosPage({ funcionarios }: any) {
             { Header: "Cargo", accessor: "role.name" },
             {
                 accessor: "action",
-                disableSortBy: true,
+                // disableSortBy: true,
                 width: "min-content",
                 disableResizing: true,
                 Cell: (row: any) => (
-                    <div className="flex">
-                        <ActionButton
-                            as={Link}
+                    <Button asChild variant="icon">
+                        <Link
                             href={route("admin.funcionarios.editar", {
                                 id: row.row.original.id,
                             })}
                         >
                             <FontAwesomeIcon icon={faPen} />
-                        </ActionButton>
-                    </div>
+                        </Link>
+                    </Button>
                 ),
             },
         ],

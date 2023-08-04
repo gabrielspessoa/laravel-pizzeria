@@ -43,9 +43,9 @@ export default function Register() {
         <div className="min-h-screen flex flex-col items-center sm:justify-center mt-12 sm:mt-0 px-5">
             <h1 className="text-3xl mb-5">
                 <span className="font-bold">Laravel </span>
-                <span className="text-slate-600">Pizzeria</span>
+                <span className="text-gray-600">Pizzeria</span>
             </h1>
-            <div className="bg-white outline outline-1 outline-slate-200 max-w-md w-full p-6 rounded-md shadow-md">
+            <div className="bg-white outline outline-1 outline-gray-200 max-w-md w-full p-6 rounded-md shadow-md">
                 <Head title="Log in" />
 
                 <form onSubmit={submit}>

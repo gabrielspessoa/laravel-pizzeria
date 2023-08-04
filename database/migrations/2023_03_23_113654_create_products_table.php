@@ -21,7 +21,7 @@ return new class extends Migration
       $table->string('image_url');
       $table->timestamps();
 
-      $table->foreignId('category_id')->constrained();
+      $table->foreignId('category_id')->default(1)->constrained();
     });
   }
 

@@ -22,7 +22,7 @@ export default forwardRef<HTMLInputElement, Props>(function Input(
                 {...props}
                 type={type}
                 className={twMerge([
-                    "border-2 border-slate-300 hover:border-slate-400 focus:border-yellow-500 ring-0 ring-slate-400 focus:ring-1 focus:ring-yellow-500 rounded-md transition duration-200",
+                    "border border-gray-300 hover:border-yellow-400 focus:border-yellow-500 ring-0 ring-gray-400 focus:ring-2 focus:ring-yellow-500/30 rounded-md transition duration-200 py-2 text-sm",
                     className,
                 ])}
                 ref={ref}

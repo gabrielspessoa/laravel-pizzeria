@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Dropdown from "@/Components/Dropdown";
+import Dropdown from "@/Components/LegacyDropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";

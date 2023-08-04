@@ -1,6 +1,6 @@
 import { Button } from "@/Components/Button";
 import Modal from "@/Components/Modal";
-import { OrderPizzaDialog } from "@/Components/OrderPizzaDialog";
+import { OrderPizzaDialog } from "@/Dialogs/OrderPizzaDialog";
 import NavLayout from "@/Layouts/NavLayout";
 import { faMotorcycle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -96,24 +96,24 @@ export default function MenuPage({ pizzas, auth }: Props) {
 
     return (
         <NavLayout auth={auth} className="md:mt-6">
-            <div className="bg-white md:rounded-lg max-w-5xl mx-auto overflow-auto">
+            <div className="max-w-5xl mx-auto overflow-auto bg-white md:rounded-lg">
                 <div
-                    className="flex justify-between p-6 gap-4"
+                    className="flex justify-between gap-4 p-6"
                     ref={pizzaInfoRef}
                 >
                     <div className="flex flex-col flex-1 sm:flex-[2]">
-                        <h1 className="text-xl sm:text-2xl md:text-4xl font-bold font-lobster mb-3">
+                        <h1 className="mb-3 text-xl font-bold sm:text-2xl md:text-4xl font-lobster">
                             {selectedPizza?.name}
                         </h1>
-                        <h3 className="text-base sm:text-lg md:text-2xl font-semibold mb-2 text-slate-700">
+                        <h3 className="mb-2 text-base font-semibold sm:text-lg md:text-2xl text-gray-700">
                             {selectedPizza?.sub_title}
                         </h3>
-                        <p className="text-base md:text-lg text-slate-600">
+                        <p className="text-base md:text-lg text-gray-600">
                             {selectedPizza?.description}
                         </p>
-                        <div className="flex flex-col sm:flex-row sm:items-center mt-4 sm:mt-10">
+                        <div className="flex flex-col mt-4 sm:flex-row sm:items-center sm:mt-10">
                             <Button
-                                className="rounded-full py-2 px-10 font-semibold shadow-lg shadow-yellow-500/20"
+                                className="px-10 py-4 font-semibold rounded-full shadow-lg"
                                 onClick={() => setDialogOpen(true)}
                             >
                                 Pedir <FontAwesomeIcon icon={faMotorcycle} />
@@ -123,7 +123,7 @@ export default function MenuPage({ pizzas, auth }: Props) {
                                 setDialogOpen={setDialogOpen}
                                 selectedPizza={selectedPizza}
                             />
-                            <span className="mt-3 sm:ml-3 sm:mt-0 font-bold">
+                            <span className="mt-3 font-bold sm:ml-3 sm:mt-0">
                                 R${" "}
                                 {selectedPizza &&
                                     parseFloat(selectedPizza.price)
@@ -133,7 +133,7 @@ export default function MenuPage({ pizzas, auth }: Props) {
                         </div>
                     </div>
                     <div className="flex-1 h-56 md:h-80">
-                        {/* <div className="max-w-xs md:max-w-sm w-full aspect-square rounded-full bg-slate-200"></div> */}
+                        {/* <div className="w-full max-w-xs rounded-full md:max-w-sm aspect-square bg-gray-200"></div> */}
                         <img
                             src={selectedPizza?.image_url}
                             className="object-contain h-full ml-auto"
@@ -144,7 +144,7 @@ export default function MenuPage({ pizzas, auth }: Props) {
                     {pizzas.map((item) => (
                         <div
                             className={twMerge([
-                                "px-4 py-7 relative bg-white hover:bg-slate-100 outline outline-2 outline-slate-900 after:content-[''] after:absolute after:inset-0 after:rounded-lg after:shadow-[inset_0px_4px_2px_1px_rgba(0,0,0,0.075)] items-center rounded-lg flex gap-4 cursor-pointer shadow-md transition-colors duration-200 ease-out",
+                                "px-4 py-7 relative bg-white hover:bg-gray-100 outline outline-2 outline-gray-900 after:content-[''] after:absolute after:inset-0 after:rounded-lg after:shadow-[inset_0px_4px_2px_1px_rgba(0,0,0,0.075)] items-center rounded-lg flex gap-4 cursor-pointer shadow-md transition-colors duration-200 ease-out",
                                 item.id === selectedPizza.id &&
                                     "bg-yellow-300 hover:bg-yellow-400",
                             ])}
@@ -157,13 +157,13 @@ export default function MenuPage({ pizzas, auth }: Props) {
                                     width={96}
                                     height={96}
                                 />
-                                {/* <div className="bg-slate-300 h-full"></div> */}
+                                {/* <div className="h-full bg-gray-300"></div> */}
                             </div>
                             <div className="flex flex-col">
-                                <span className="font-bold text-lg">
+                                <span className="text-lg font-bold">
                                     {item.name}
                                 </span>
-                                <span className="font-semibold font-bebas tracking-widest text-xl text-green-800">
+                                <span className="text-xl font-semibold tracking-widest text-green-800 font-bebas">
                                     R${" "}
                                     {parseFloat(item.price)
                                         .toFixed(2)

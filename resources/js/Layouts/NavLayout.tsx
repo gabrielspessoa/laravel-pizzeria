@@ -1,4 +1,4 @@
-import Dropdown from "@/Components/Dropdown";
+import Dropdown from "@/Components/LegacyDropdown";
 import {
     faBars,
     faCaretDown,
@@ -36,7 +36,7 @@ export default function NavLayout({
         <div className="min-h-screen flex flex-col">
             <nav
                 className={twMerge([
-                    "h-16 px-6 md:px-14 flex items-center shadow-md shadow-slate-500/10 bg-red-600 text-white text-sm relative z-10",
+                    "h-16 px-6 md:px-14 flex items-center shadow-md shadow-gray-500/10 bg-red-600 text-white text-sm relative z-10",
                     navClassName,
                 ])}
             >
@@ -245,7 +245,7 @@ const NavItem = ({
             className={twMerge([
                 "flex flex-col gap-1 justify-center px-3 h-full relative z-20 font-semibold",
                 active
-                    ? "before:content-[''] text-slate-800 before:bg-white before:absolute before:inset-0 before:-bottom-2 before:rounded-b-sm before:shadow-[0_3px_0_theme(colors.red.600)] before:-z-10"
+                    ? "before:content-[''] text-gray-800 before:bg-white before:absolute before:inset-0 before:-bottom-2 before:rounded-b-sm before:shadow-[0_3px_0_theme(colors.red.600)] before:-z-10"
                     : "after:content-[''] after:bg-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:transition-transform after:scale-y-0 after:origin-bottom hover:after:scale-y-100",
             ])}
         >
