@@ -4,6 +4,7 @@ import {
     faArrowLeft,
     faGear,
     faHouse,
+    faListCheck,
     faPizzaSlice,
     faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,41 +22,29 @@ interface Props {
     };
 }
 
-export default function AdminLayout({ children, className, header }: Props) {
+export default function ChefLayout({ children, className, header }: Props) {
     return (
         <div className="flex h-screen">
             <aside>
-                <nav className="flex flex-col items-center w-16 h-full py-4 text-white bg-red-600">
+                <nav className="flex flex-col items-center w-16 h-full py-4 text-white bg-amber-600">
                     <div className="mb-5 text-2xl">
                         <span className="font-bold">L</span>
                         <span>P</span>
                     </div>
                     <div className="flex flex-col justify-between w-full h-full">
                         <NavGroup>
-                            <Tooltip text="Dashboard">
+                            <Tooltip text="Pedidos">
                                 <NavLink
-                                    routeName="admin.dashboard"
-                                    icon={<FontAwesomeIcon icon={faHouse} />}
-                                ></NavLink>
-                            </Tooltip>
-                            <Tooltip text="Funcionários">
-                                <NavLink
-                                    routeName="admin.funcionarios"
-                                    icon={<FontAwesomeIcon icon={faUsers} />}
-                                ></NavLink>
-                            </Tooltip>
-                            <Tooltip text="Produtos">
-                                <NavLink
-                                    routeName="admin.produtos.index"
+                                    routeName="chef.pedidos"
                                     icon={
-                                        <FontAwesomeIcon icon={faPizzaSlice} />
+                                        <FontAwesomeIcon icon={faListCheck} />
                                     }
                                 ></NavLink>
                             </Tooltip>
                         </NavGroup>
                         <NavGroup>
                             <Tooltip text="Opções">
-                                <NavDropdown></NavDropdown>
+                                <NavDropdown bgColor="bg-amber-500"></NavDropdown>
                             </Tooltip>
                         </NavGroup>
                     </div>
@@ -96,8 +85,8 @@ const NavLink = forwardRef<any, any>(
                 className={twMerge([
                     "flex flex-col gap-1 justify-center px-3 w-full relative z-20 font-semibold py-4",
                     active
-                        ? "bg-red-500 before:content-[''] before:bg-white before:absolute before:bottom-0 before:top-0 before:right-0 before:w-1 before:-z-10"
-                        : "after:content-[''] after:bg-white after:absolute after:bottom-0 after:top-0 after:right-0 after:w-1 after:transition-transform after:scale-x-0 after:origin-right hover:after:scale-x-100 hover:bg-red-500 transition duration-200",
+                        ? "bg-amber-500 before:content-[''] before:bg-white before:absolute before:bottom-0 before:top-0 before:right-0 before:w-1 before:-z-10"
+                        : "after:content-[''] after:bg-white after:absolute after:bottom-0 after:top-0 after:right-0 after:w-1 after:transition-transform after:scale-x-0 after:origin-right hover:after:scale-x-100 hover:bg-amber-500 transition duration-200",
                 ])}
                 {...props}
             >
@@ -114,8 +103,8 @@ const NavButton = ({ icon, children, ...props }: any) => {
             className={twMerge([
                 "flex flex-col gap-1 items-center px-3 w-full relative z-20 font-semibold py-4",
                 active
-                    ? "bg-red-500 before:content-[''] before:bg-white before:absolute before:bottom-0 before:top-0 before:right-0 before:w-1 before:-z-10"
-                    : "after:content-[''] after:bg-white after:absolute after:bottom-0 after:top-0 after:right-0 after:w-1 after:transition-transform after:scale-x-0 after:origin-right hover:after:scale-x-100 hover:bg-red-500 transition duration-200",
+                    ? "bg-yellow-500 before:content-[''] before:bg-white before:absolute before:bottom-0 before:top-0 before:right-0 before:w-1 before:-z-10"
+                    : "after:content-[''] after:bg-white after:absolute after:bottom-0 after:top-0 after:right-0 after:w-1 after:transition-transform after:scale-x-0 after:origin-right hover:after:scale-x-100 hover:bg-yellow-500 transition duration-200",
             ])}
             {...props}
         >

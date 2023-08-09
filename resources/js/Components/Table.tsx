@@ -13,7 +13,7 @@ export const Table = ({ columns, data }: { columns: Column[]; data: any }) => {
 
     return (
         <div
-            className="text-sm text-left text-gray-500"
+            className="overflow-hidden text-sm text-left text-gray-500 border border-gray-200 rounded-md"
             {...table.getTableProps()}
         >
             {table.headerGroups.map((headerGroup) =>
@@ -40,7 +40,7 @@ export const Table = ({ columns, data }: { columns: Column[]; data: any }) => {
             {table.rows.map((row) => {
                 table.prepareRow(row);
                 return (
-                    <div className="contents group">
+                    <div className="contents group" key={row.id}>
                         {row.cells.map((cell) => (
                             <div
                                 {...cell.getCellProps()}

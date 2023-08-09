@@ -19,13 +19,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
     return Inertia::render('Admin/Funcionarios', ['funcionarios' => User::with('role')->get()]);
   })->name('admin.funcionarios');
 
-  Route::get('/admin/funcionarios/{id}', function ($id) {
-    return Inertia::render('Admin/EditarFuncionario', ['funcionario' => User::with('role')->find($id), 'cargos' => Role::all()]);
-  })->name('admin.funcionarios.index');
+  // Route::get('/admin/funcionarios/create', [UserController::class, 'create'])->name('admin.funcionarios.create');
 
-  Route::get('/admin/funcionarios/{id}/editar', [UserController::class, 'edit'])->name('admin.funcionarios.editar');
+  Route::prefix('admin/funcionarios')->group(function () {
+    Route::get('/create', [UserController::class, 'create'])->name('admin.funcionarios.create');
 
-  Route::patch('/admin/funcionarios/{id}/atualizar', [UserController::class, 'update'])->name('admin.funcionarios.atualizar');
+    Route::get('/admin/funcionarios/{id}', function ($id) {
+      return Inertia::render('Admin/EditarFuncionario', ['funcionario' => User::with('role')->find($id), 'cargos' => Role::all()]);
+    })->name('admin.funcionarios.index');
+
+    Route::get('/admin/funcionarios/{id}/editar', [UserController::class, 'edit'])->name('admin.funcionarios.editar');
+
+    Route::patch('/admin/funcionarios/{id}/atualizar', [UserController::class, 'update'])->name('admin.funcionarios.atualizar');
+  });
+
+
 
   // Route::get('/admin/produtos', [ProductController::class, 'index'])->name('admin.produtos');
 

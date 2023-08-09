@@ -1,7 +1,7 @@
 import { Button } from "@/Components/Button";
 import { Table } from "@/Components/Table";
 import AdminLayout from "@/Layouts/AdminLayout";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@inertiajs/react";
 import { ButtonHTMLAttributes, useMemo } from "react";
@@ -49,6 +49,13 @@ export default function AdminFuncionariosPage({ funcionarios }: any) {
     return (
         <AdminLayout header={{ title: "Funcionários" }}>
             <div className="p-6">
+                <div className="mb-3">
+                    <Button variant="icon" asChild>
+                        <Link href={route("admin.funcionarios.create")}>
+                            <FontAwesomeIcon icon={faPlus} />
+                        </Link>
+                    </Button>
+                </div>
                 <Table
                     columns={funcionariosColumns}
                     data={funcionariosData}

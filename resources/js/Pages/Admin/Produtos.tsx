@@ -4,7 +4,7 @@ import { ConfirmDeleteDialog } from "@/Dialogs/ConfirmDeleteDialog";
 import AdminLayout from "@/Layouts/AdminLayout";
 import { faPen, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { useMemo, useState } from "react";
 
 export default function Produtos({ produtos }: any) {
@@ -66,22 +66,25 @@ export default function Produtos({ produtos }: any) {
     const produtosData = useMemo(() => produtos, [produtos]);
 
     return (
-        <AdminLayout header={{ title: "Lista de Produtos" }}>
-            <ConfirmDeleteDialog
-                isDialogOpen={isDialogOpen}
-                setDialogOpen={setDialogOpen}
-                selectedPizza={selectedPizza}
-            />
-            <div className="p-6">
-                <div className="mb-3">
-                    <Button variant="icon" asChild>
-                        <Link href={route("admin.produtos.create")}>
-                            <FontAwesomeIcon icon={faPlus} />
-                        </Link>
-                    </Button>
+        <>
+            <Head title="Admin - Produtos" />
+            <AdminLayout header={{ title: "Lista de Produtos" }}>
+                <ConfirmDeleteDialog
+                    isDialogOpen={isDialogOpen}
+                    setDialogOpen={setDialogOpen}
+                    selectedPizza={selectedPizza}
+                />
+                <div className="p-6">
+                    <div className="mb-3">
+                        <Button variant="icon" asChild>
+                            <Link href={route("admin.produtos.create")}>
+                                <FontAwesomeIcon icon={faPlus} />
+                            </Link>
+                        </Button>
+                    </div>
+                    <Table columns={produtosColumns} data={produtosData} />
                 </div>
-                <Table columns={produtosColumns} data={produtosData} />
-            </div>
-        </AdminLayout>
+            </AdminLayout>
+        </>
     );
 }

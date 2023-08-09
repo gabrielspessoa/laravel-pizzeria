@@ -3,11 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Error;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckIfAdmin
+class CheckIfChef
 {
   /**
    * Handle an incoming request.
@@ -16,7 +15,7 @@ class CheckIfAdmin
    */
   public function handle(Request $request, Closure $next): Response
   {
-    if ($request->user()->role_id === 1) {
+    if ($request->user()->role_id === 3 || $request->user()->role_id === 1) {
       return $next($request);
     }
 

@@ -19,6 +19,11 @@ class UserController extends Controller
     dd($validated);
   }
 
+  public function create()
+  {
+    return Inertia::render('Admin/NovoFuncionario');
+  }
+
   public function edit($id)
   {
     $user = User::find($id);
@@ -36,7 +41,9 @@ class UserController extends Controller
       'password' => 'confirmed'
     ]);
 
-    $validated['password'] = Hash::make($validated['password']);
+    if ($request->password) {
+      $validated['password'] = Hash::make($validated['password']);
+    }
 
     $user = User::find($id);
     $user->update($validated);

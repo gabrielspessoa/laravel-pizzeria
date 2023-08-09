@@ -70,17 +70,6 @@ export default function EditarFuncionario({ funcionario, cargos }: any) {
                                         </ErrorMessage>
                                     )}
                                 </div>
-                                {/* <div className="mt-3">
-                            <label>Cargo</label>
-                            <Listbox
-                                options={cargos}
-                                selected={data.role}
-                                setSelected={selectRole}
-                            ></Listbox>
-                            {errors.role && (
-                                <ErrorMessage>{errors.role}</ErrorMessage>
-                            )}
-                        </div> */}
                                 <div className="mt-3">
                                     <label>Cargo</label>
                                     <Select
@@ -91,43 +80,6 @@ export default function EditarFuncionario({ funcionario, cargos }: any) {
                                     {errors.role_id && (
                                         <ErrorMessage>
                                             {errors.role_id}
-                                        </ErrorMessage>
-                                    )}
-                                </div>
-                                <hr className="my-5" />
-                                <h3 className="mb-2 text-lg font-bold">
-                                    Trocar senha
-                                </h3>
-                                <div>
-                                    <label>Senha</label>
-                                    <Input
-                                        value={data.password}
-                                        onChange={(e) => {
-                                            setData("password", e.target.value);
-                                        }}
-                                        className="w-full"
-                                    ></Input>
-                                    {errors.password && (
-                                        <ErrorMessage>
-                                            {errors.password}
-                                        </ErrorMessage>
-                                    )}
-                                </div>
-                                <div className="mt-3">
-                                    <label>Confirmar Senha</label>
-                                    <Input
-                                        value={data.password_confirmation}
-                                        onChange={(e) => {
-                                            setData(
-                                                "password_confirmation",
-                                                e.target.value
-                                            );
-                                        }}
-                                        className="w-full"
-                                    ></Input>
-                                    {errors.password_confirmation && (
-                                        <ErrorMessage>
-                                            {errors.password_confirmation}
                                         </ErrorMessage>
                                     )}
                                 </div>

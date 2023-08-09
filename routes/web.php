@@ -29,7 +29,17 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
   if (auth()->check()) {
-    return auth()->user()->role_id == 2 ? redirect('/admin') : redirect('/inicio');
+    switch (auth()->user()->role_id) {
+      case 1:
+        return redirect('/admin');
+        break;
+      case 3:
+        return redirect('/chef');
+      default:
+        dd(auth()->user()->role_id);
+        return redirect('/inicio');
+        break;
+    }
   };
 
   return redirect('/inicio');
@@ -58,4 +68,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/admin.php';
+require __DIR__ . '/chef.php';
 require __DIR__ . '/auth.php';

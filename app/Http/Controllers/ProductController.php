@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class ProductController extends Controller
 {
@@ -24,7 +25,8 @@ class ProductController extends Controller
    */
   public function create()
   {
-    return Inertia::render('Admin/NovoProduto');
+    $categories = Category::all();
+    return Inertia::render('Admin/NovoProduto', ['categorias' => $categories]);
   }
 
   /**
@@ -62,11 +64,15 @@ class ProductController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(StoreProductRequest $request, Product $product)
+  public function update(StoreProductRequest $request, $id)
   {
     $validated = $request->validated();
 
-    dd($product);
+    $product = Product::findOrFail($id);
+
+    $product->update($validated);
+
+    return redirect(route('admin.produtos.index'));
   }
 
   /**
