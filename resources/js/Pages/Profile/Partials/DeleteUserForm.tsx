@@ -1,5 +1,5 @@
 import { useRef, useState, FormEvent } from "react";
-import Modal from "@/Components/Modal";
+import * as Dialog from "@/Components/Dialog";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/Input";
 import { useForm } from "@inertiajs/react";
@@ -60,9 +60,15 @@ export default function DeleteUserForm({ className }: Props) {
                 </p>
             </header>
 
-            <button onClick={confirmUserDeletion}>Delete Account</button>
-
-            <Modal show={confirmingUserDeletion} onClose={closeModal}>
+            <Dialog.Dialog
+                open={confirmingUserDeletion}
+                onOpenChange={closeModal}
+                trigger={
+                    <button onClick={confirmUserDeletion}>
+                        Delete Account
+                    </button>
+                }
+            >
                 <form onSubmit={deleteUser} className="p-6">
                     <h2 className="text-lg font-medium text-gray-900">
                         Are you sure you want to delete your account?
@@ -86,10 +92,10 @@ export default function DeleteUserForm({ className }: Props) {
                             name="password"
                             ref={passwordInput}
                             value={data.password}
-                            handleChange={(e) =>
+                            onChange={(e) =>
                                 setData("password", e.target.value)
                             }
-                            className="mt-1 block w-3/4"
+                            className="block w-3/4 mt-1"
                             placeholder="Password"
                         />
 
@@ -99,7 +105,7 @@ export default function DeleteUserForm({ className }: Props) {
                         /> */}
                     </div>
 
-                    <div className="mt-6 flex justify-end">
+                    <div className="flex justify-end mt-6">
                         <SecondaryButton onClick={closeModal}>
                             Cancel
                         </SecondaryButton>
@@ -109,7 +115,7 @@ export default function DeleteUserForm({ className }: Props) {
                         </button>
                     </div>
                 </form>
-            </Modal>
+            </Dialog.Dialog>
         </section>
     );
 }

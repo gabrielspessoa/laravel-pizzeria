@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\OrderProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+  use HasFactory;
+
   protected $fillable = [
     'customer_id',
     'chef_id',
@@ -31,6 +34,6 @@ class Order extends Model
 
   public function products()
   {
-    return $this->belongsToMany(Product::class);
+    return $this->belongsToMany(Product::class)->withPivot('quantity')->using(OrderProduct::class);
   }
 }

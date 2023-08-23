@@ -1,4 +1,6 @@
-import Dropdown from "@/Components/LegacyDropdown";
+import { Button } from "@/Components/Button";
+import Cart from "@/Components/Cart";
+// import Dropdown from "@/Components/LegacyDropdown";
 import {
     faBars,
     faCaretDown,
@@ -11,10 +13,11 @@ import {
     faTruck,
     faUser,
     faUserGear,
+    faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Transition } from "@headlessui/react";
 import { Link } from "@inertiajs/react";
+import { AnimatePresence } from "framer-motion";
 import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -33,14 +36,14 @@ export default function NavLayout({
     const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="flex flex-col min-h-screen">
             <nav
                 className={twMerge([
                     "h-16 px-6 md:px-14 flex items-center shadow-md shadow-gray-500/10 bg-red-600 text-white text-sm relative z-10",
                     navClassName,
                 ])}
             >
-                <div className="h-full flex items-center mr-12">
+                <div className="flex items-center h-full mr-12">
                     <Link href="/">
                         <img
                             src="/storage/pizza-logo.png"
@@ -49,7 +52,7 @@ export default function NavLayout({
                         />
                     </Link>
                 </div>
-                <div className="hidden md:flex items-center h-full w-full justify-between">
+                <div className="items-center justify-between hidden w-full h-full md:flex">
                     <NavGroup>
                         <NavItem
                             href={route("inicio")}
@@ -82,11 +85,8 @@ export default function NavLayout({
                         )}
                     </NavGroup>
                     <NavGroup>
-                        <NavItem
-                            href="/carrinho"
-                            icon={<FontAwesomeIcon icon={faCartShopping} />}
-                        ></NavItem>
-                        {auth?.user ? (
+                        <Cart />
+                        {/* {auth?.user ? (
                             <Dropdown>
                                 <Dropdown.Trigger>
                                     <button>Perfil</button>
@@ -100,12 +100,12 @@ export default function NavLayout({
                                     </Dropdown.Link>
                                 </Dropdown.Content>
                             </Dropdown>
-                        ) : (
-                            <NavItem href="login">Entrar</NavItem>
-                        )}
+                        ) : ( */}
+                        <NavItem href="login">Entrar</NavItem>
+                        {/* )} */}
                     </NavGroup>
                 </div>
-                <div className="block md:hidden ml-auto">
+                <div className="block ml-auto md:hidden">
                     <Link href="/cart" className="mr-6">
                         <FontAwesomeIcon icon={faCartShopping} size="lg" />
                     </Link>
@@ -116,7 +116,7 @@ export default function NavLayout({
                     </button>
                 </div>
             </nav>
-            <Transition
+            {/* <Transition
                 show={isMobileNavigationOpen}
                 enter="transition-opacity duration-75"
                 enterFrom="opacity-0"
@@ -124,98 +124,115 @@ export default function NavLayout({
                 leave="transition-opacity duration-150"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
-            >
-                <div
-                    className={`md:hidden absolute left-0 right-0 bg-white font-semibold border-b z-50`}
-                >
-                    <div className="px-6 flex flex-col">
-                        <Link
-                            href="/"
-                            className={`py-4 relative ${
-                                route().current("welcome") && "text-red-700"
-                            }`}
-                        >
-                            <FontAwesomeIcon
-                                icon={faHouse}
-                                className="mr-5"
-                                fixedWidth
-                            />
-                            Início
-                        </Link>
-                        <Link
-                            href="/order"
-                            className={`py-4 relative ${
-                                route().current("order") && "text-red-700"
-                            }`}
-                        >
-                            <FontAwesomeIcon
-                                icon={faTruck}
-                                className="mr-5"
-                                fixedWidth
-                            />
-                            Fazer Pedido
-                        </Link>
-                        <Link
-                            href="/menu"
-                            className={`py-4 relative ${
-                                route().current("menu") && "text-red-700"
-                            }`}
-                        >
-                            <FontAwesomeIcon
-                                icon={faPizzaSlice}
-                                className="mr-5"
-                                fixedWidth
-                            />
-                            Cardápio
-                        </Link>
-                        <Link
-                            href="/my-orders"
-                            className={`py-4 relative ${
-                                route().current("my-orders") && "text-red-700"
-                            }`}
-                        >
-                            <FontAwesomeIcon
-                                icon={faListCheck}
-                                className="mr-5"
-                                fixedWidth
-                            />
-                            Meus pedidos
-                        </Link>
-                    </div>
-                    <div className="flex flex-col py-4 border-t px-6">
-                        <button
-                            className="text-start"
-                            onClick={() => setProfileMenuOpen((prev) => !prev)}
-                        >
-                            <FontAwesomeIcon icon={faUser} className="mr-5" />
-                            Gabriel Pessoa{" "}
-                            <FontAwesomeIcon icon={faCaretDown} />
-                        </button>
-                        <div
-                            className={`${
-                                isProfileMenuOpen ? "flex" : "hidden"
-                            } flex-col ml-3`}
-                        >
-                            <Link href="/profile" className="py-3">
+            > */}
+            <AnimatePresence>
+                {isMobileNavigationOpen && (
+                    <div
+                        className={`md:hidden absolute left-0 right-0 bg-white font-semibold border-b z-50`}
+                    >
+                        <div className="flex flex-col px-6">
+                            <Button
+                                variant="icon"
+                                className="mt-3 ml-auto"
+                                onClick={() => setMobileNavigationOpen(false)}
+                            >
+                                <FontAwesomeIcon icon={faX} />
+                            </Button>
+                            <Link
+                                href="/"
+                                className={`py-4 relative ${
+                                    route().current("welcome") && "text-red-700"
+                                }`}
+                            >
                                 <FontAwesomeIcon
-                                    icon={faUserGear}
-                                    className="mr-3"
+                                    icon={faHouse}
+                                    className="mr-5"
+                                    fixedWidth
                                 />
-                                Perfil
+                                Início
                             </Link>
-                            <button className="text-start text-red-600">
+                            <Link
+                                href="/order"
+                                className={`py-4 relative ${
+                                    route().current("order") && "text-red-700"
+                                }`}
+                            >
                                 <FontAwesomeIcon
-                                    icon={faRightFromBracket}
-                                    className="mr-3"
+                                    icon={faTruck}
+                                    className="mr-5"
+                                    fixedWidth
                                 />
-                                Sair
+                                Fazer Pedido
+                            </Link>
+                            <Link
+                                href={route("cardapio")}
+                                className={`py-4 relative ${
+                                    route().current("menu") && "text-red-700"
+                                }`}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faPizzaSlice}
+                                    className="mr-5"
+                                    fixedWidth
+                                />
+                                Cardápio
+                            </Link>
+                            <Link
+                                href="/my-orders"
+                                className={`py-4 relative ${
+                                    route().current("my-orders") &&
+                                    "text-red-700"
+                                }`}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faListCheck}
+                                    className="mr-5"
+                                    fixedWidth
+                                />
+                                Meus pedidos
+                            </Link>
+                        </div>
+                        <div className="flex flex-col px-6 py-4 border-t">
+                            <button
+                                className="text-start"
+                                onClick={() =>
+                                    setProfileMenuOpen((prev) => !prev)
+                                }
+                            >
+                                <FontAwesomeIcon
+                                    icon={faUser}
+                                    className="mr-5"
+                                />
+                                Gabriel Pessoa{" "}
+                                <FontAwesomeIcon icon={faCaretDown} />
                             </button>
+                            <div
+                                className={`${
+                                    isProfileMenuOpen ? "flex" : "hidden"
+                                } flex-col ml-3`}
+                            >
+                                <Link href="/profile" className="py-3">
+                                    <FontAwesomeIcon
+                                        icon={faUserGear}
+                                        className="mr-3"
+                                    />
+                                    Perfil
+                                </Link>
+                                <button className="text-red-600 text-start">
+                                    <FontAwesomeIcon
+                                        icon={faRightFromBracket}
+                                        className="mr-3"
+                                    />
+                                    Sair
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </Transition>
+                )}
+            </AnimatePresence>
+            {/* </Transition> */}
             <main className={`${className}`}>{children}</main>
-            <footer className="bg-red-600 text-white px-6 md:px-14 py-3 text-center">
+            <footer className="px-6 py-3 text-center text-white bg-red-600 md:px-14">
                 <span className="font-semibold">
                     &copy; 2023 Laravel Pizzeria
                 </span>
@@ -225,7 +242,7 @@ export default function NavLayout({
 }
 
 const NavGroup = ({ children }: any) => {
-    return <div className="flex items-center gap-5 h-full">{children}</div>;
+    return <div className="flex items-center h-full gap-5">{children}</div>;
 };
 
 const NavItem = ({

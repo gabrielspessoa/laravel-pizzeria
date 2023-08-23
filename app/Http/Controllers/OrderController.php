@@ -13,7 +13,18 @@ class OrderController extends Controller
    */
   public function index()
   {
-    $orders = Order::with('chef', 'deliveryman', 'customer', 'products')->get();
+    $orders = Order::all()->load('chef', 'deliveryman', 'customer', 'products')->sortBy(function ($order) {
+      switch ($order->status) {
+        case 'in_progress':
+          return [1, $order->updated_at];
+        case 'pending':
+          return [2, $order->created_at];
+        case 'completed':
+          return [3, $order->updated_at];
+        default:
+          return [4, $order->updated_at];
+      }
+    })->values();
     return Inertia::render('Chef/Pedidos', ['pedidos' => $orders]);
   }
 
@@ -63,5 +74,14 @@ class OrderController extends Controller
   public function destroy(Order $order)
   {
     //
+  }
+
+  public function acceptOrder(Order $order)
+  {
+    $order->chef_id = auth()->id();
+    $order->status = 'in_progress';
+    $order->save();
+
+    return redirect(route('chef.pedidos'));
   }
 }

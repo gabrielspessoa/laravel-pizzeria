@@ -26,3 +26,7 @@
 .landing-bg {
     background: radial-gradient(theme(colors.zinc.800), theme(colors.zinc.900));
 }
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}

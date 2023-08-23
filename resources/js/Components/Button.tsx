@@ -10,7 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants = {
     primary:
-        "bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-500 shadow-sm font-medium text-gray-700 rounded-md px-4 py-2 text-sm transition",
+        "bg-yellow-400 hover:bg-yellow-300 focus:outline-none ring-yellow-400/30 ring-0 focus:ring-4 active:bg-yellow-500 shadow-sm font-medium text-gray-700 rounded-md px-4 py-2 text-sm transition",
     danger: "bg-red-500 hover:bg-red-400 active:bg-red-600 shadow-sm font-medium text-white rounded-md px-4 py-2 text-sm transition",
     outline:
         "bg-white border border-gray-300 shadow-sm font-medium rounded-md px-4 py-2 text-sm transition hover:text-gray-500",
@@ -28,11 +28,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {...props}
                 ref={ref}
                 className={twMerge([
+                    "select-none",
                     selectVariant(variant),
                     props.className,
                     props.disabled &&
                         "opacity-70 hover:bg-yellow-400 active:bg-yellow-400 cursor-wait",
                 ])}
+                style={{ WebkitTapHighlightColor: "transparent" }}
             >
                 {props.children}
             </Component>

@@ -1,18 +1,20 @@
 import { Button } from "@/Components/Button";
-import Modal from "@/Components/Modal";
+import * as Dialog from "@/Components/Dialog";
 import { useForm } from "@inertiajs/react";
 import toast from "react-hot-toast";
 import { router } from "@inertiajs/react";
 
 interface Props {
-    isDialogOpen: boolean;
-    setDialogOpen: (value: boolean) => void;
+    open: boolean;
+    setOpen: (value: boolean) => void;
+    trigger: React.ReactNode;
     selectedPizza: any;
 }
 
 export const ConfirmDeleteDialog = ({
-    isDialogOpen,
-    setDialogOpen,
+    open,
+    setOpen,
+    trigger,
     selectedPizza,
 }: Props) => {
     const { delete: destroy } = useForm();
@@ -28,14 +30,10 @@ export const ConfirmDeleteDialog = ({
                 toast.error("Erro", { id: "deleteToast" });
             },
         });
-        setDialogOpen(false);
+        setOpen(false);
     };
     return (
-        <Modal
-            show={isDialogOpen}
-            onClose={() => setDialogOpen(false)}
-            className=""
-        >
+        <Dialog.Dialog open={open} onOpenChange={setOpen} trigger={trigger}>
             <form onSubmit={handleProductDelete}>
                 <div className="p-7">
                     Tem certeza de que deseja excluir o produto {selectedPizza}?
@@ -45,12 +43,12 @@ export const ConfirmDeleteDialog = ({
                     <Button
                         variant="outline"
                         type="button"
-                        onClick={() => setDialogOpen(false)}
+                        onClick={() => setOpen(false)}
                     >
                         Cancelar
                     </Button>
                 </div>
             </form>
-        </Modal>
+        </Dialog.Dialog>
     );
 };

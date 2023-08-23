@@ -25,12 +25,12 @@ export default function AdminLayout({ children, className, header }: Props) {
     return (
         <div className="flex h-screen">
             <aside>
-                <nav className="flex flex-col items-center w-16 h-full py-4 text-white bg-red-600">
-                    <div className="mb-5 text-2xl">
+                <nav className="fixed bottom-0 flex items-center w-full h-16 px-4 text-white bg-red-600 sm:px-0 sm:py-4 sm:relative sm:w-16 sm:h-full sm:flex-col">
+                    <div className="hidden mb-5 text-2xl sm:block">
                         <span className="font-bold">L</span>
                         <span>P</span>
                     </div>
-                    <div className="flex flex-col justify-between w-full h-full">
+                    <div className="flex justify-between w-full h-full sm:flex-col">
                         <NavGroup>
                             <Tooltip text="Dashboard">
                                 <NavLink
@@ -82,7 +82,9 @@ export default function AdminLayout({ children, className, header }: Props) {
 }
 
 const NavGroup = ({ children }: any) => {
-    return <div className="flex flex-col items-center gap-4">{children}</div>;
+    return (
+        <div className="flex items-center gap-4 sm:flex-col">{children}</div>
+    );
 };
 
 const NavLink = forwardRef<any, any>(
@@ -94,10 +96,10 @@ const NavLink = forwardRef<any, any>(
                 href={routeName ? route(routeName) : null}
                 ref={ref}
                 className={twMerge([
-                    "flex flex-col gap-1 justify-center px-3 w-full relative z-20 font-semibold py-4",
+                    "flex flex-col gap-1 justify-center px-3 h-full sm:h-auto w-14 sm:w-full relative z-20 font-semibold py-4",
                     active
-                        ? "bg-red-500 before:content-[''] before:bg-white before:absolute before:bottom-0 before:top-0 before:right-0 before:w-1 before:-z-10"
-                        : "after:content-[''] after:bg-white after:absolute after:bottom-0 after:top-0 after:right-0 after:w-1 after:transition-transform after:scale-x-0 after:origin-right hover:after:scale-x-100 hover:bg-red-500 transition duration-200",
+                        ? "bg-red-500 before:content-[''] before:bg-white before:absolute before:left-0 before:right-0 before:top-0 sm:before:left-auto sm:before:bottom-0 sm:before:top-0 sm:before:right-0 before:h-1 sm:before:h-full sm:before:w-1 before:-z-10"
+                        : "after:content-[''] after:bg-white after:absolute after:left-0 after:right-0 after:top-0 sm:after:left-auto sm:after:bottom-0 sm:after:top-0 sm:after:right-0 after:h-1 sm:after:h-full sm:after:w-1 after:transition-transform after:scale-y-0 sm:after:scale-x-0 after:origin-top sm:after:origin-right hover:after:scale-y-100 sm:after:scale-y-100 sm:hover:after:scale-x-100 hover:bg-red-500 transition duration-200",
                 ])}
                 {...props}
             >

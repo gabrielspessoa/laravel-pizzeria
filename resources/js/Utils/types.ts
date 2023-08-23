@@ -3,7 +3,7 @@ export interface IOrder {
     customer_id: number;
     chef_id: number;
     deliveryman_id: number;
-    status: string;
+    status: "pending" | "in_progress" | "completed";
     created_at: null;
     updated_at: null;
     chef: IUser;
@@ -33,4 +33,8 @@ export interface IProduct {
     created_at: null;
     updated_at: null;
     category_id: number;
+    pivot: {
+        quantity: number;
+        is_done: boolean;
+    };
 }

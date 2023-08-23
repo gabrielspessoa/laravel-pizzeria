@@ -50,7 +50,7 @@ export default function ChefLayout({ children, className, header }: Props) {
                     </div>
                 </nav>
             </aside>
-            <main className="w-full overflow-auto">
+            <main className="w-full overflow-hidden">
                 {header && (
                     <div className="flex items-center w-full px-6 text-xl font-semibold bg-white border-b h-14">
                         {header.back && (
@@ -64,7 +64,9 @@ export default function ChefLayout({ children, className, header }: Props) {
                         {header.title}
                     </div>
                 )}
-                <div className={twMerge([className])}>{children}</div>
+                <div className={twMerge("overflow-auto", [className])}>
+                    {children}
+                </div>
             </main>
         </div>
     );

@@ -12,6 +12,6 @@ class MenuController extends Controller
   {
     $pizzas = DB::table('products')->where('category_id', 1)->get();
 
-    return Inertia::render('Cardapio', ['pizzas' => $pizzas]);
+    return Inertia::render('Cardapio', ['pizzas' => $pizzas, 'cart' => session()->get('cart')]);
   }
 }

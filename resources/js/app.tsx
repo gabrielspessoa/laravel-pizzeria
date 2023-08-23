@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { Toaster } from "react-hot-toast";
+import { LazyMotion, domAnimation, domMax } from "framer-motion";
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
@@ -22,7 +23,9 @@ createInertiaApp({
         root.render(
             <>
                 <Toaster />
-                <App {...props} />
+                <LazyMotion features={domMax}>
+                    <App {...props} />
+                </LazyMotion>
             </>
         );
     },

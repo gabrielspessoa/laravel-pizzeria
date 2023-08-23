@@ -1,5 +1,4 @@
 import { Button } from "@/Components/Button";
-import Modal from "@/Components/Modal";
 import { OrderPizzaDialog } from "@/Dialogs/OrderPizzaDialog";
 import NavLayout from "@/Layouts/NavLayout";
 import { faMotorcycle } from "@fortawesome/free-solid-svg-icons";
@@ -19,67 +18,10 @@ interface Props {
         image_url: string;
     }[];
     auth: any;
+    cart: any;
 }
 
-export default function MenuPage({ pizzas, auth }: Props) {
-    const [isDialogOpen, setDialogOpen] = useState(false);
-
-    // return <pre>{JSON.stringify(pizzas, undefined, 2)}</pre>;
-    // const pizzas = [
-    //     {
-    //         id: 0,
-    //         name: "Margherita",
-    //         subTitle: "Pizza Margherita",
-    //         description:
-    //             "Pizza clássica italiana com tomate, mussarela fresca e manjericão.",
-    //         price: 30.0,
-    //         image: "/storage/pizza-banner.png",
-    //     },
-    //     {
-    //         id: 1,
-    //         name: "Quatro Queijos",
-    //         subTitle: "Pizza Quatro Queijos",
-    //         description:
-    //             "Pizza com mussarela, parmesão, gorgonzola e provolone derretidos.",
-    //         price: 35.0,
-    //         image: "/storage/pizza-banner.png",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Frango com Catupiry",
-    //         subTitle: "Pizza de Frango com Catupiry",
-    //         description: "Pizza de frango desfiado, catupiry e milho verde.",
-    //         price: 40.0,
-    //         image: "/storage/pizza-banner.png",
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "Calabresa",
-    //         subTitle: "Pizza de Calabresa",
-    //         description: "Pizza com fatias de calabresa, cebola e mussarela.",
-    //         price: 32.0,
-    //         image: "/storage/pizza-banner.png",
-    //     },
-    //     {
-    //         id: 4,
-    //         name: "Portuguesa",
-    //         subTitle: "Pizza Portuguesa",
-    //         description:
-    //             "Pizza com presunto, cebola, pimentão, ovos e azeitonas.",
-    //         price: 38.0,
-    //         image: "/storage/pizza-banner.png",
-    //     },
-    //     {
-    //         id: 5,
-    //         name: "Vegetariana",
-    //         subTitle: "Pizza Vegetariana",
-    //         description:
-    //             "Pizza com abobrinha, berinjela, pimentão, cebola e azeitonas pretas.",
-    //         price: 42.0,
-    //         image: "/storage/pizza-banner.png",
-    //     },
-    // ];
-
+export default function MenuPage({ pizzas, auth, cart }: Props) {
     const pizzaInfoRef = useRef(null);
 
     const [selectedPizza, setSelectedPizza] = useState<any>(pizzas[0]);
@@ -115,16 +57,7 @@ export default function MenuPage({ pizzas, auth }: Props) {
                                 {selectedPizza?.description}
                             </p>
                             <div className="flex flex-col mt-4 sm:flex-row sm:items-center sm:mt-10">
-                                <Button
-                                    className="px-10 py-4 font-semibold rounded-full shadow-lg"
-                                    onClick={() => setDialogOpen(true)}
-                                >
-                                    Pedir{" "}
-                                    <FontAwesomeIcon icon={faMotorcycle} />
-                                </Button>
                                 <OrderPizzaDialog
-                                    isDialogOpen={isDialogOpen}
-                                    setDialogOpen={setDialogOpen}
                                     selectedPizza={selectedPizza}
                                 />
                                 <span className="mt-3 font-bold sm:ml-3 sm:mt-0">
@@ -146,9 +79,9 @@ export default function MenuPage({ pizzas, auth }: Props) {
                     </div>
                     <div className="grid grid-cols-[repeat(auto-fill,minmax(264px,1fr))] gap-6 p-3">
                         {pizzas.map((item) => (
-                            <div
+                            <button
                                 className={twMerge([
-                                    "px-4 py-7 relative bg-white hover:bg-gray-100 outline outline-2 outline-gray-900 after:content-[''] after:absolute after:inset-0 after:rounded-lg after:shadow-[inset_0px_4px_2px_1px_rgba(0,0,0,0.075)] items-center rounded-lg flex gap-4 cursor-pointer shadow-md transition-colors duration-200 ease-out",
+                                    "px-4 py-7 relative bg-white focus:ring-8 ring-yellow-300/60 ring-0 hover:bg-gray-100 outline outline-2 outline-gray-900 after:content-[''] after:absolute after:inset-0 after:rounded-lg after:shadow-[inset_0px_4px_2px_1px_rgba(0,0,0,0.075)] items-center rounded-lg flex gap-4 cursor-pointer shadow-md transition duration-200 ease-out",
                                     item.id === selectedPizza.id &&
                                         "bg-yellow-300 hover:bg-yellow-400",
                                 ])}
@@ -174,7 +107,7 @@ export default function MenuPage({ pizzas, auth }: Props) {
                                             .replace(".", ",")}
                                     </span>
                                 </div>
-                            </div>
+                            </button>
                         ))}
                     </div>
                 </div>

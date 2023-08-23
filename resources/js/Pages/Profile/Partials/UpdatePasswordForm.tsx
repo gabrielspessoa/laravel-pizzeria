@@ -2,7 +2,6 @@ import { useRef, FormEvent } from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/Input";
 import { useForm } from "@inertiajs/react";
-import { Transition } from "@headlessui/react";
 import Input from "@/Components/Input";
 
 interface Props {
@@ -69,11 +68,11 @@ export default function UpdatePasswordForm({ className }: Props) {
                         id="current_password"
                         ref={currentPasswordInput}
                         value={data.current_password}
-                        handleChange={(e) =>
+                        onChange={(e) =>
                             setData("current_password", e.target.value)
                         }
                         type="password"
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="current-password"
                     />
 
@@ -87,11 +86,9 @@ export default function UpdatePasswordForm({ className }: Props) {
                         id="password"
                         ref={passwordInput}
                         value={data.password}
-                        handleChange={(e) =>
-                            setData("password", e.target.value)
-                        }
+                        onChange={(e) => setData("password", e.target.value)}
                         type="password"
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="new-password"
                     />
 
@@ -106,11 +103,11 @@ export default function UpdatePasswordForm({ className }: Props) {
                     <Input
                         id="password_confirmation"
                         value={data.password_confirmation}
-                        handleChange={(e) =>
+                        onChange={(e) =>
                             setData("password_confirmation", e.target.value)
                         }
                         type="password"
-                        className="mt-1 block w-full"
+                        className="block w-full mt-1"
                         autoComplete="new-password"
                     />
 
@@ -123,14 +120,7 @@ export default function UpdatePasswordForm({ className }: Props) {
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
 
-                    <Transition
-                        show={recentlySuccessful}
-                        enterFrom="opacity-0"
-                        leaveTo="opacity-0"
-                        className="transition ease-in-out"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
+                    <p className="text-sm text-gray-600">Saved.</p>
                 </div>
             </form>
         </section>

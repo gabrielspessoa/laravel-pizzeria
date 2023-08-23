@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssetsController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -45,6 +46,10 @@ Route::get('/', function () {
   return redirect('/inicio');
 });
 
+Route::get('/test', function () {
+  return Inertia::render('Test');
+});
+
 Route::get('/inicio', function () {
   return Inertia::render('Inicio');
 })->name('inicio');
@@ -55,11 +60,13 @@ Route::get('/meus-pedidos', function () {
   return Inertia::render('MeusPedidos');
 })->name('meus-pedidos');
 
-Route::middleware('auth')->group(function () {
-  Route::get('/carrinho', function () {
-    return Inertia::render('Carrinho');
-  })->name('carrinho');
+Route::prefix('/carrinho')->group(function () {
+  Route::post('/{product}', [CartController::class, 'add'])->name('carrinho.add');
 
+  Route::delete('/', [CartController::class, 'clear'])->name('carrinho.clear');
+});
+
+Route::middleware('auth')->group(function () {
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
