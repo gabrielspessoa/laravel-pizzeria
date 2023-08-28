@@ -62,9 +62,12 @@ Route::get('/meus-pedidos', function () {
 
 Route::prefix('/carrinho')->group(function () {
   Route::post('/{product}', [CartController::class, 'add'])->name('carrinho.add');
+  Route::get('/checkout', [CartController::class, 'checkout'])->name('carrinho.checkout');
 
+  Route::delete('/{id}', [CartController::class, 'delete'])->name('carrinho.delete');
   Route::delete('/', [CartController::class, 'clear'])->name('carrinho.clear');
 });
+
 
 Route::middleware('auth')->group(function () {
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

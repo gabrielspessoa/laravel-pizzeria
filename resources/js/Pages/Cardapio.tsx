@@ -81,7 +81,7 @@ export default function MenuPage({ pizzas, auth, cart }: Props) {
                         {pizzas.map((item) => (
                             <button
                                 className={twMerge([
-                                    "px-4 py-7 relative bg-white focus:ring-8 ring-yellow-300/60 ring-0 hover:bg-gray-100 outline outline-2 outline-gray-900 after:content-[''] after:absolute after:inset-0 after:rounded-lg after:shadow-[inset_0px_4px_2px_1px_rgba(0,0,0,0.075)] items-center rounded-lg flex gap-4 cursor-pointer shadow-md transition duration-200 ease-out",
+                                    "px-4 py-7 relative text-left bg-white focus:ring-8 ring-yellow-300/60 ring-0 hover:bg-gray-100 outline outline-2 outline-gray-900 after:content-[''] after:absolute after:inset-0 after:rounded-lg after:shadow-[inset_0px_4px_2px_1px_rgba(0,0,0,0.075)] items-center rounded-lg flex gap-4 cursor-pointer shadow-md transition duration-200 ease-out",
                                     item.id === selectedPizza.id &&
                                         "bg-yellow-300 hover:bg-yellow-400",
                                 ])}

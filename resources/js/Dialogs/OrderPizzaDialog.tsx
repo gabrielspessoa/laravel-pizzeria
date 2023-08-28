@@ -42,6 +42,7 @@ export const OrderPizzaDialog = ({ selectedPizza }: Props) => {
             router.reload();
 
             setOpen(false);
+            setData("qty", "1");
         }
     };
 

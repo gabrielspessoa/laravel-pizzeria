@@ -11,7 +11,6 @@ import axios from "axios";
 
 export default function Cart() {
     const [open, setOpen] = useState(false);
-
     let { cart } = usePage().props as unknown as { cart: Array<any> };
 
     const handleClearCart = async () => {
@@ -20,6 +19,16 @@ export default function Cart() {
         if (res.status === 200) {
             router.reload();
         }
+    };
+
+    const getFinalPrice = () => {
+        let finalPrice = 0.0;
+        if (cart) {
+            Object.values(cart).map((item) => {
+                finalPrice += item.product.price * item.qty;
+            });
+        }
+        return finalPrice;
     };
 
     const isFirstRun = useRef(true);
@@ -43,7 +52,7 @@ export default function Cart() {
                 ])}
             >
                 <span className="absolute right-0 flex items-center justify-center w-4 h-4 text-xs text-red-600 bg-white rounded-full top-2">
-                    {Object.keys(cart).length}
+                    {cart ? Object.keys(cart).length : "0"}
                 </span>
                 <FontAwesomeIcon icon={faShoppingCart} />
             </RadixDialog.Trigger>
@@ -79,13 +88,48 @@ export default function Cart() {
                                     </RadixDialog.Close>
                                 </RadixDialog.Title>
                                 <div className="flex-1 pt-3 overflow-auto bg-gray-100">
-                                    {cart &&
-                                        Object.values(cart).map((item) => {
-                                            return <CartItem data={item} />;
-                                        })}
+                                    <div className="flex pl-6 pr-10 mb-2 text-sm text-gray-500">
+                                        <span className="flex-1">Sabor</span>
+                                        <span>Qtd.</span>
+                                    </div>
+                                    <AnimatePresence>
+                                        {cart ? (
+                                            Object.values(cart).map((item) => {
+                                                return (
+                                                    <CartItem
+                                                        key={item.product.id}
+                                                        data={item}
+                                                    />
+                                                );
+                                            })
+                                        ) : (
+                                            <div className="text-center">
+                                                Sem items no carrinho
+                                            </div>
+                                        )}
+                                    </AnimatePresence>
                                 </div>
-                                <div className="flex flex-col gap-3 p-6 bg-white">
-                                    <Button>Finalizar</Button>
+                                <div className="flex flex-col gap-3 p-6 bg-white border-t">
+                                    <div>
+                                        <span className="text-sm">
+                                            Valor final:{" "}
+                                        </span>
+                                        <span className="font-medium text-green-700">
+                                            R${" "}
+                                            {getFinalPrice()
+                                                .toFixed(2)
+                                                .replace(".", ",")}
+                                        </span>
+                                    </div>
+                                    <Button
+                                        onClick={() =>
+                                            router.visit(
+                                                route("carrinho.checkout")
+                                            )
+                                        }
+                                    >
+                                        Finalizar
+                                    </Button>
                                     <Button
                                         variant="outline"
                                         onClick={handleClearCart}
@@ -103,10 +147,43 @@ export default function Cart() {
 }
 
 const CartItem = ({ data }: any) => {
+    const handleCartItemDelete = async () => {
+        const res = await axios.delete(
+            route("carrinho.delete", data.product.id)
+        );
+
+        if (res.status === 200) {
+            router.reload();
+        }
+    };
+
     return (
-        <div className="flex w-full p-6 bg-white" key={data.product.id}>
-            <span>{data.product.name}</span>
-            <span className="ml-auto">{data.qty}</span>
-        </div>
+        <motion.div
+            className="relative flex w-full bg-white border-b group last:border-b-0"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ type: "tween", ease: [0, 1, 0, 1] }}
+        >
+            <Button
+                variant="icon"
+                className="absolute w-5 h-5 text-gray-400 group-hover:text-red-600 active:bg-red-200 hover:bg-red-100 top-1 right-1"
+                onClick={handleCartItemDelete}
+            >
+                <FontAwesomeIcon icon={faX} size="xs" />
+            </Button>
+            <span className="relative flex items-center w-10 h-10 my-auto ml-6">
+                <img
+                    className="absolute inset-0"
+                    src={data.product.image_url}
+                ></img>
+            </span>
+            <div className="flex items-center flex-1 py-6 pl-6 pr-16 overflow-hidden text-sm">
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                    {data.product.name}
+                </span>
+                <span className="pl-2 ml-auto font-medium">{data.qty}</span>
+            </div>
+        </motion.div>
     );
 };
